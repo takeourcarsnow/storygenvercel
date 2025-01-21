@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ PasakAI ✨</title>
+    <link rel="icon" href="/favicon.png">
+    <meta property="og:title" content="✨ PasakAI ✨">
+    <meta property="og:description" content="Atrask savo pasaką">
+    <meta property="og:image" content="[YOUR_PREVIEW_IMAGE_URL]">
+    <meta property="og:url" content="[YOUR_WEBSITE_URL]">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="bg-gradient"></div>
+    <div class="stars"></div>
+    <div class="firefly"></div>
+    <div class="theme-switch">
+        <button id="theme-toggle">
+            <span class="day-icon">☀️</span>
+            <span class="night-icon">🌙</span>
+        </button>
+    </div>
+    <div class="social-links">
+        <a href="https://www.patreon.com/inpixels" target="_blank" class="patreon-link">
+            <span>❤️ Paremti projektą</span>
+        </a>
+    </div>
+    <div class="hero">
+        <h1>✨ PasakAI ✨</h1>
+        <p class="tagline">Atrask savo stebuklingą pasaką 🪄</p>
+        <div class="hero-description">
+            <p>Pasirink veikėjus, vietą, laiką ir nuotaiką, o mes paversime tavo idėjas magiška istorija!</p>
+            <div class="magic-icons">
+                <span>🦄</span>
+                <span>🌟</span>
+                <span>🎭</span>
+                <span>🌈</span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="story-settings">
+            <div class="setting-section">
+                <h2>🕰️ Kada vyksta pasaka?</h2>
+                <div class="swiper time-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" data-value="Seniai seniai">
+                            <div class="choice-card">
+                                <div class="emoji">📜</div>
+                                <span>Seniai seniai</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Ateityje">
+                            <div class="choice-card">
+                                <div class="emoji">🚀</div>
+                                <span>Ateityje</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Dabar">
+                            <div class="choice-card">
+                                <div class="emoji">📱</div>
+                                <span>Dabar</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Žiemą">
+                            <div class="choice-card">
+                                <div class="emoji">❄️</div>
+                                <span>Žiemą</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Vasarą">
+                            <div class="choice-card">
+                                <div class="emoji">☀️</div>
+                                <span>Vasarą</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Paslaptingą naktį">
+                            <div class="choice-card">
+                                <div class="emoji">🌙</div>
+                                <span>Paslaptingą naktį</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Prieš šimtą metų">
+                            <div class="choice-card">
+                                <div class="emoji">⏳</div>
+                                <span>Prieš šimtą metų</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Sapnų karalystėje">
+                            <div class="choice-card">
+                                <div class="emoji">💫</div>
+                                <span>Sapnų karalystėje</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Saulėtą rytą">
+                            <div class="choice-card">
+                                <div class="emoji">🌅</div>
+                                <span>Saulėtą rytą</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Rudens popietę">
+                            <div class="choice-card">
+                                <div class="emoji">🍂</div>
+                                <span>Rudens popietę</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Mėnesienoje">
+                            <div class="choice-card">
+                                <div class="emoji">🌕</div>
+                                <span>Mėnesienoje</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Per Kalėdas">
+                            <div class="choice-card">
+                                <div class="emoji">🎄</div>
+                                <span>Per Kalėdas</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="setting-section">
+                <h2>📍 Kur vyksta pasaka?</h2>
+                <div class="swiper place-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" data-value="Stebuklingame miške">
+                            <div class="choice-card">
+                                <div class="emoji">🌳</div>
+                                <span>Stebuklingas miškas</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Pilyje">
+                            <div class="choice-card">
+                                <div class="emoji">🏰</div>
+                                <span>Pilis</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Kosmose">
+                            <div class="choice-card">
+                                <div class="emoji">🌠</div>
+                                <span>Kosmosas</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Po vandeniu">
+                            <div class="choice-card">
+                                <div class="emoji">🌊</div>
+                                <span>Po vandeniu</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Debesų karalystėje">
+                            <div class="choice-card">
+                                <div class="emoji">☁️</div>
+                                <span>Debesų karalystė</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Saldainių šalyje">
+                            <div class="choice-card">
+                                <div class="emoji">🍬</div>
+                                <span>Saldainių šalis</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Požemių labirinte">
+                            <div class="choice-card">
+                                <div class="emoji">🗝️</div>
+                                <span>Požemių labirinte</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Krištolo oloje">
+                            <div class="choice-card">
+                                <div class="emoji">💎</div>
+                                <span>Krištolo oloje</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Vaivorykštės tilte">
+                            <div class="choice-card">
+                                <div class="emoji">🌈</div>
+                                <span>Vaivorykštės tilte</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Šokolado fabrike">
+                            <div class="choice-card">
+                                <div class="emoji">🍫</div>
+                                <span>Šokolado fabrike</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="setting-section">
+                <h2>👥 Kas yra veikėjai?</h2>
+                <div class="swiper character-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" data-value="Princesė ir drakonas">
+                            <div class="choice-card">
+                                <div class="emoji">👸🐲</div>
+                                <span>Princesė ir drakonas</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Nykštukai">
+                            <div class="choice-card">
+                                <div class="emoji">🧝</div>
+                                <span>Nykštukai</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Kalbantys gyvūnai">
+                            <div class="choice-card">
+                                <div class="emoji">🦊🦁</div>
+                                <span>Kalbantys gyvūnai</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Burtininkai">
+                            <div class="choice-card">
+                                <div class="emoji">🧙‍♂️</div>
+                                <span>Burtininkai</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Robotai">
+                            <div class="choice-card">
+                                <div class="emoji">🤖</div>
+                                <span>Robotai</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Drąsus riteris ir fėja">
+                            <div class="choice-card">
+                                <div class="emoji">⚔️🧚</div>
+                                <span>Riteris ir fėja</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Skraidantis vienaragis">
+                            <div class="choice-card">
+                                <div class="emoji">🦄✨</div>
+                                <span>Skraidantis vienaragis</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Linksmasis trolis">
+                            <div class="choice-card">
+                                <div class="emoji">👾</div>
+                                <span>Linksmasis trolis</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Stebuklingas katinas">
+                            <div class="choice-card">
+                                <div class="emoji">🐱✨</div>
+                                <span>Stebuklingas katinas</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Mažasis astronautas">
+                            <div class="choice-card">
+                                <div class="emoji">👨‍🚀</div>
+                                <span>Mažasis astronautas</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="setting-section">
+                <h2>🎭 Kokia nuotaika?</h2>
+                <div class="swiper mood-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" data-value="Linksma">
+                            <div class="choice-card">
+                                <div class="emoji">😊</div>
+                                <span>Linksma</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Nuotykių">
+                            <div class="choice-card">
+                                <div class="emoji">🗺️</div>
+                                <span>Nuotykių</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Paslaptinga">
+                            <div class="choice-card">
+                                <div class="emoji">🔮</div>
+                                <span>Paslaptinga</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Stebuklinga">
+                            <div class="choice-card">
+                                <div class="emoji">✨</div>
+                                <span>Stebuklinga</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Draugiška">
+                            <div class="choice-card">
+                                <div class="emoji">🤝</div>
+                                <span>Draugiška</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Romantiška">
+                            <div class="choice-card">
+                                <div class="emoji">💝</div>
+                                <span>Romantiška</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Jaudinanti">
+                            <div class="choice-card">
+                                <div class="emoji">💫</div>
+                                <span>Jaudinanti</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-value="Magijos kupina">
+                            <div class="choice-card">
+                                <div class="emoji">🎭</div>
+                                <span>Magijos kupina</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+
+            <div class="setting-section">
+                <h2>👶 Skaitytojo amžius</h2>
+                <div class="age-slider-container">
+                    <div class="age-labels">
+                        <span>3-6 m.</span>
+                        <span>7-9 m.</span>
+                        <span>10-12 m.</span>
+                        <span>13+ m.</span>
+                    </div>
+                    <input type="range" id="age-slider" min="1" max="4" value="2" step="1" class="age-slider">
+                    <div class="age-description" id="age-description">
+                        <span class="age-emoji">📖</span>
+                        <span class="age-text">7-9 metų vaikams</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="generate-btn" class="generate-button">
+                <span class="button-text">Sukurti pasaką ✨</span>
+                <div class="button-magic"></div>
+            </button>
+        </div>
+
+        <div class="story-container">
+            <!-- Loading Animation -->
+            <div class="loading-animation">
+                <div class="loading-text">Kuriama pasaka...</div>
+                <div class="loading-dots">
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                </div>
+                <div class="loading-messages"></div>
+                <div class="loading-sparkles"></div>
+            </div>
+
+            <!-- Story Content -->
+            <div class="story-content">
+                <div class="story-header">
+                    <h3>✨ Tavo pasaka paruošta!</h3>
+                </div>
+                <div id="story-text"></div>
+                <div class="share-buttons">
+                    <button class="share-btn copy" id="copy-btn">
+                        <span class="share-icon">📋</span>
+                        <span class="share-text">Kopijuoti pasaką</span>
+                    </button>
+                    <button class="share-btn twitter">
+                        <span class="share-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </span>
+                        <span class="share-text">Dalintis X</span>
+                    </button>
+                    <button class="share-btn facebook">
+                        <span class="share-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </span>
+                        <span class="share-text">Dalintis Facebook</span>
+                    </button>
+                </div>
+                <button id="new-story-btn" class="generate-button">
+                    <span class="button-text">Kurti naują pasaką 🌟</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-social-links">
+            <a href="https://www.patreon.com/inpixels" target="_blank" rel="noopener noreferrer" class="patreon-link">
+                <span>❤️ Paremti projektą</span>
+            </a>
+        </div>
+        <p>Sukurta su 💖 vaikų džiaugsmui</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
