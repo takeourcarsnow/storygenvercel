@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Cache DOM elements
+    const elements = {
+        body: document.body,
+        themeToggle: document.getElementById('theme-toggle'),
+        ageSlider: document.getElementById('age-slider'),
+        ageDescription: document.getElementById('age-description'),
+        generateBtn: document.getElementById('generate-btn'),
+        storyContainer: document.querySelector('.story-container'),
+        storyContent: document.querySelector('.story-content'),
+        storyText: document.getElementById('story-text'),
+        loadingAnimation: document.querySelector('.loading-animation'),
+        shareButtons: document.querySelector('.share-buttons'),
+        copyBtn: document.getElementById('copy-btn'),
+        newStoryBtn: document.getElementById('new-story-btn')
+    };
+
     // Constants
     const LOADING_MESSAGES = [
         "Renkamos idėjos... ✨",
@@ -13,30 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
         "Baigiami paskutiniai potėpiai... 🖌️"
     ];
 
-    // Theme handling
-    const body = document.body;
-    body.classList.add(`${localStorage.getItem('theme') || 'dark'}-theme`);
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-        body.classList.toggle('light-theme');
-        body.classList.toggle('dark-theme');
-        localStorage.setItem('theme', body.classList.contains('light-theme') ? 'light' : 'dark');
-    });
-
-    // Age slider handling
-    const ageSlider = document.getElementById('age-slider');
-    const ageDescription = document.getElementById('age-description');
-    const ageRanges = {
+    const AGE_RANGES = {
         1: { text: '3-6 metų vaikams', emoji: '👶' },
         2: { text: '7-9 metų vaikams', emoji: '📖' },
         3: { text: '10-12 metų vaikams', emoji: '📚' },
         4: { text: '13+ metų vaikams', emoji: '🎯' }
     };
-    
-    const updateAgeDescription = (value) => {
-        const { text, emoji } = ageRanges[value];
-        ageDescription.innerHTML = `<span class="age-emoji">${emoji}</span><span class="age-text">${text}</span>`;
-    };
-    ageSlider.addEventListener('input', (e) => updateAgeDescription(e.target.value));
 
     // Story options
     const options = {
@@ -46,17 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
         mood: ["Linksma", "Nuotykių", "Paslaptinga", "Stebuklinga", "Draugiška", "Pamokanti", "Juokinga", "Romantiška", "Jaudinanti", "Įkvepianti", "Džiaugsminga", "Išdykusi", "Šilta", "Žaisminga", "Svajonių", "Drąsi", "Magijos kupina", "Netikėta", "Šmaikšti", "Jautri"]
     };
 
+    // Theme handling
+    const initTheme = () => {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        elements.body.classList.add(`${savedTheme}-theme`);
+    };
+
+    const toggleTheme = () => {
+        elements.body.classList.toggle('light-theme');
+        elements.body.classList.toggle('dark-theme');
+        localStorage.setItem('theme', elements.body.classList.contains('light-theme') ? 'light' : 'dark');
+    };
+
+    // Age slider handling
+    const updateAgeDescription = (value) => {
+        const { text, emoji } = AGE_RANGES[value];
+        elements.ageDescription.innerHTML = `<span class="age-emoji">${emoji}</span><span class="age-text">${text}</span>`;
+    };
+
     // Loading animation
     const showLoadingAnimation = () => {
-        const loadingAnimation = document.querySelector('.loading-animation');
-        const loadingMessages = loadingAnimation.querySelector('.loading-messages');
-        const sparklesContainer = loadingAnimation.querySelector('.loading-sparkles');
+        const loadingMessages = elements.loadingAnimation.querySelector('.loading-messages');
+        const sparklesContainer = elements.loadingAnimation.querySelector('.loading-sparkles');
         let messageIndex = 0;
 
-        // Show story container and loading animation
-        document.querySelector('.story-container').style.display = 'block';
-        loadingAnimation.classList.add('visible');
-        document.querySelector('.story-content').style.display = 'none';
+        elements.storyContainer.style.display = 'block';
+        elements.loadingAnimation.classList.add('visible');
+        elements.storyContent.style.display = 'none';
 
         // Create sparkles
         for (let i = 0; i < 5; i++) {
@@ -68,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sparklesContainer.appendChild(sparkle);
         }
 
-        // Cycle through messages
         const messageInterval = setInterval(() => {
             loadingMessages.textContent = LOADING_MESSAGES[messageIndex];
             messageIndex = (messageIndex + 1) % LOADING_MESSAGES.length;
@@ -76,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return () => {
             clearInterval(messageInterval);
-            loadingAnimation.classList.remove('visible');
+            elements.loadingAnimation.classList.remove('visible');
             sparklesContainer.innerHTML = '';
         };
     };
@@ -111,91 +124,80 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Initialize swipers
-    const getRandomIndex = (max) => Math.floor(Math.random() * max);
+    // Initialize swipers with random selection (avoiding first and last slides)
+const initializeSwipers = () => {
+    const swiperElements = {
+        time: '.time-swiper',
+        place: '.place-swiper',
+        character: '.character-swiper',
+        mood: '.mood-swiper'
+    };
+
+    const swipers = {};
     
-    const getUniqueRandomSelections = () => {
+    // Get random initial slides for each swiper (avoiding first and last)
+    const getRandomInitialSlides = () => {
         const selections = {};
-        const usedSelections = new Set();
         
-        for (const [category, categoryOptions] of Object.entries(options)) {
-            let selection;
-            do {
-                selection = categoryOptions[getRandomIndex(categoryOptions.length)];
-            } while (usedSelections.has(selection));
-            
-            selections[category] = {
-                index: getRandomIndex(document.querySelectorAll(`.${category}-swiper .swiper-slide`).length),
-                value: selection
-            };
-            usedSelections.add(selection);
+        for (const [key, selector] of Object.entries(swiperElements)) {
+            const totalSlides = document.querySelectorAll(`${selector} .swiper-slide`).length;
+            // Exclude first and last slides from random selection
+            const minIndex = 1; // Skip first slide
+            const maxIndex = totalSlides - 2; // Skip last slide
+            selections[key] = minIndex + Math.floor(Math.random() * (maxIndex - minIndex + 1));
         }
+        
         return selections;
     };
 
-    const initializeSwipers = () => {
-        const swiperElements = {
-            time: '.time-swiper',
-            place: '.place-swiper',
-            character: '.character-swiper',
-            mood: '.mood-swiper'
-        };
-        
-        const uniqueSelections = getUniqueRandomSelections();
-        const swipers = {};
-        
-        for (const [key, elementSelector] of Object.entries(swiperElements)) {
-            const element = document.querySelector(elementSelector);
-            swipers[key] = new Swiper(element, {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                centeredSlides: true,
-                initialSlide: uniqueSelections[key].index,
-                navigation: {
-                    nextEl: element.querySelector('.swiper-button-next'),
-                    prevEl: element.querySelector('.swiper-button-prev')
-                },
-                pagination: {
-                    el: element.querySelector('.swiper-pagination'),
-                    clickable: true
-                },
-                breakpoints: {
-                    640: { slidesPerView: 2 },
-                    968: { slidesPerView: 3 }
-                }
-            });
-        }
-        return swipers;
-    };
-
-    const swipers = initializeSwipers();
+    const initialSlides = getRandomInitialSlides();
+    
+    // Initialize each swiper with its random initial slide
+    for (const [key, elementSelector] of Object.entries(swiperElements)) {
+        const element = document.querySelector(elementSelector);
+        swipers[key] = new Swiper(element, {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            centeredSlides: true,
+            initialSlide: initialSlides[key], // Set random initial slide (excluding first and last)
+            navigation: {
+                nextEl: element.querySelector('.swiper-button-next'),
+                prevEl: element.querySelector('.swiper-button-prev')
+            },
+            pagination: {
+                el: element.querySelector('.swiper-pagination'),
+                clickable: true
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                968: { slidesPerView: 3 }
+            }
+        });
+    }
+    return swipers;
+};
 
     // Story display
     const displayStory = async (story) => {
-        const storyContainer = document.querySelector('.story-container');
-        const storyContent = document.querySelector('.story-content');
-        const storyText = document.getElementById('story-text');
-        const shareButtons = document.querySelector('.share-buttons');
-        
-        storyContainer.style.display = 'block';
-        storyContent.style.display = 'block';
-        shareButtons.style.display = 'none';
-        storyText.innerHTML = '';
+        elements.storyContainer.style.display = 'block';
+        elements.storyContent.style.display = 'block';
+        elements.shareButtons.style.display = 'none';
+        elements.storyText.innerHTML = '';
 
-        storyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        elements.storyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        await typewriterEffect(storyText, story);
+        await typewriterEffect(elements.storyText, story);
 
-        shareButtons.style.display = 'flex';
-        shareButtons.style.opacity = '0';
+        elements.shareButtons.style.display = 'flex';
+        elements.shareButtons.style.opacity = '0';
         setTimeout(() => {
-            shareButtons.style.transition = 'opacity 0.5s ease';
-            shareButtons.style.opacity = '1';
+            elements.shareButtons.style.transition = 'opacity 0.5s ease';
+            elements.shareButtons.style.opacity = '1';
         }, 100);
     };
 
     // Generate button handler
-    document.getElementById('generate-btn').addEventListener('click', async () => {
+    const handleGenerateClick = async () => {
         const getSelectedValue = (swiperClass) => 
             document.querySelector(`${swiperClass} .swiper-slide-active`)?.dataset.value;
 
@@ -204,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             place: getSelectedValue('.place-swiper'),
             characters: getSelectedValue('.character-swiper'),
             mood: getSelectedValue('.mood-swiper'),
-            ageGroup: ageSlider.value
+            ageGroup: elements.ageSlider.value
         };
 
         const missingSelections = Object.entries(selectedValues)
@@ -221,12 +223,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const button = document.getElementById('generate-btn');
-        const buttonText = button.querySelector('.button-text');
-        button.disabled = true;
+        const buttonText = elements.generateBtn.querySelector('.button-text');
+        elements.generateBtn.disabled = true;
         buttonText.textContent = 'Kuriama... 🌟';
 
-        // Start loading animation
         const stopLoading = showLoadingAnimation();
 
         try {
@@ -239,10 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('Network response was not ok');
             
             const data = await response.json();
-            
-            // Stop loading animation
             stopLoading();
-            
             await displayStory(data.story);
             
         } catch (error) {
@@ -250,28 +247,14 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Įvyko klaida! Bandykite dar kartą. 😔');
             stopLoading();
         } finally {
-            button.disabled = false;
+            elements.generateBtn.disabled = false;
             buttonText.textContent = 'Generuoti';
         }
-    });
+    };
 
     // Share functionality
-    document.getElementById('copy-btn')?.addEventListener('click', async () => {
-        const storyText = document.getElementById('story-text').textContent;
-        try {
-            await navigator.clipboard.writeText(storyText);
-            const copyBtn = document.getElementById('copy-btn');
-            copyBtn.querySelector('.share-text').textContent = 'Nukopijuota! ✓';
-            setTimeout(() => {
-                copyBtn.querySelector('.share-text').textContent = 'Kopijuoti';
-            }, 2000);
-        } catch (err) {
-            alert('Nepavyko nukopijuoti teksto');
-        }
-    });
-
     const shareStory = (platform) => {
-        const storyText = document.getElementById('story-text').textContent;
+        const storyText = elements.storyText.textContent;
         const shareText = encodeURIComponent(`Pasaka sukurta su Pasakų Burtininku:\n\n${storyText.substring(0, 200)}...`);
         const shareUrl = encodeURIComponent(window.location.href);
         const shareLinks = {
@@ -281,32 +264,20 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(shareLinks[platform], '_blank', 'width=600,height=400');
     };
 
-    document.querySelector('.share-btn.twitter')?.addEventListener('click', () => shareStory('twitter'));
-    document.querySelector('.share-btn.facebook')?.addEventListener('click', () => shareStory('facebook'));
-    
-    document.getElementById('new-story-btn')?.addEventListener('click', () => {
-        document.querySelector('.story-container').style.display = 'none';
-        document.querySelector('.story-settings').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
     // Create fireflies
     const createFireflies = () => {
-        // Remove any existing firefly elements
         const existingFirefly = document.querySelector('.firefly');
         if (existingFirefly) {
             existingFirefly.remove();
         }
 
-        // Create new firefly effect
         const firefly = document.createElement('div');
         firefly.className = 'firefly';
         
-        // Create fireflies
         for (let i = 0; i < 30; i++) {
             const glow = document.createElement('div');
             glow.className = 'firefly-glow';
             
-            // Random position and movement
             const tx = Math.random() * 200 - 100;
             const ty = Math.random() * 200 - 100;
             const duration = 6 + Math.random() * 4;
@@ -325,6 +296,35 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(firefly);
     };
 
+    // Event listeners
+    elements.themeToggle.addEventListener('click', toggleTheme);
+    elements.ageSlider.addEventListener('input', (e) => updateAgeDescription(e.target.value));
+    elements.generateBtn.addEventListener('click', handleGenerateClick);
+    elements.copyBtn?.addEventListener('click', async () => {
+        const storyText = elements.storyText.textContent;
+        try {
+            await navigator.clipboard.writeText(storyText);
+            const copyBtn = elements.copyBtn;
+            copyBtn.querySelector('.share-text').textContent = 'Nukopijuota! ✓';
+            setTimeout(() => {
+                copyBtn.querySelector('.share-text').textContent = 'Kopijuoti';
+            }, 2000);
+        } catch (err) {
+            alert('Nepavyko nukopijuoti teksto');
+        }
+    });
+
+    document.querySelector('.share-btn.twitter')?.addEventListener('click', () => shareStory('twitter'));
+    document.querySelector('.share-btn.facebook')?.addEventListener('click', () => shareStory('facebook'));
+    
+    elements.newStoryBtn?.addEventListener('click', () => {
+        elements.storyContainer.style.display = 'none';
+        document.querySelector('.story-settings').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Initialize swipers
+    const swipers = initializeSwipers();
+
     // Initialize fireflies with performance optimization
     if (window.requestIdleCallback) {
         requestIdleCallback(createFireflies);
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(createFireflies, 0);
     }
 
-    // Error handling for swiper initialization
+    // Error handling
     window.addEventListener('error', (e) => {
         if (e.message.includes('Swiper')) {
             console.error('Swiper initialization error:', e);
@@ -342,11 +342,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle page visibility changes
     document.addEventListener('visibilitychange', () => {
-        const storyText = document.getElementById('story-text');
-        if (document.hidden && storyText.querySelector('.typing-cursor')) {
-            storyText.querySelector('.typing-cursor').style.animationPlayState = 'paused';
-        } else if (storyText.querySelector('.typing-cursor')) {
-            storyText.querySelector('.typing-cursor').style.animationPlayState = 'running';
+        const cursor = elements.storyText.querySelector('.typing-cursor');
+        if (document.hidden && cursor) {
+            cursor.style.animationPlayState = 'paused';
+        } else if (cursor) {
+            cursor.style.animationPlayState = 'running';
         }
     });
 
@@ -375,4 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingAnimation = document.querySelector('.loading-animation');
         if (loadingAnimation) loadingAnimation.classList.remove('visible');
     });
+
+    // Initialize theme on load
+    initTheme();
 });

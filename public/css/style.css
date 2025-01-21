@@ -1,4 +1,5 @@
 :root {
+    /* Theme variables */
     --bg-light: linear-gradient(135deg, #e0e5ec, #f5f7fa);
     --bg-dark: linear-gradient(135deg, #1a1a2e, #16213e);
     --text-light: #333;
@@ -9,12 +10,18 @@
     --transition: all 0.3s ease;
     --select-color: #2ecc71;
     --color-primary: #ff6b6b;
+    
+    /* Performance variables */
+    --gpu-transform: translateZ(0);
+    --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Base styles with GPU acceleration */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    backface-visibility: hidden;
 }
 
 body {
@@ -26,6 +33,8 @@ body {
     overflow-x: hidden;
     transition: var(--transition);
     line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 body.light-theme {
@@ -48,12 +57,13 @@ body.light-theme {
     height: 50px;
     cursor: pointer;
     backdrop-filter: blur(5px);
-    transition: var(--transition);
+    transition: transform 0.3s var(--animation-timing);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    will-change: transform;
 }
 
 .theme-switch button:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) var(--gpu-transform);
 }
 
 .day-icon,
@@ -86,12 +96,14 @@ body.light-theme {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    transition: var(--transition);
+    transition: transform 0.3s var(--animation-timing), 
+                box-shadow 0.3s var(--animation-timing);
     box-shadow: 0 4px 15px rgba(255, 66, 77, 0.2);
+    will-change: transform, box-shadow;
 }
 
 .patreon-link:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) var(--gpu-transform);
     box-shadow: 0 6px 20px rgba(255, 66, 77, 0.3);
 }
 
@@ -105,8 +117,9 @@ body.light-theme {
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    animation: float 3s infinite;
+    animation: float 3s infinite var(--animation-timing);
     text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    will-change: transform;
 }
 
 .tagline {
@@ -133,7 +146,8 @@ body.light-theme {
 .magic-icons span {
     margin: 0 0.5rem;
     display: inline-block;
-    animation: bounce 2s infinite;
+    animation: bounce 2s infinite var(--animation-timing);
+    will-change: transform;
 }
 
 .magic-icons span:nth-child(2) {
@@ -178,8 +192,9 @@ body.light-theme {
 }
 
 .swiper-slide {
-    transition: var(--transition);
+    transition: opacity 0.3s var(--animation-timing);
     opacity: 0.5;
+    will-change: transform, opacity;
 }
 
 .swiper-slide-active {
@@ -197,9 +212,11 @@ body.light-theme {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: var(--transition);
+    transition: transform 0.3s var(--animation-timing),
+                box-shadow 0.3s var(--animation-timing);
     cursor: pointer;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    will-change: transform, box-shadow;
 }
 
 .choice-card::after,
@@ -218,12 +235,12 @@ body.light-theme {
 }
 
 .choice-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) var(--gpu-transform);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .swiper-slide-active .choice-card {
-    transform: scale(1.05);
+    transform: scale(1.05) var(--gpu-transform);
 }
 
 .emoji {
@@ -235,7 +252,7 @@ body.light-theme {
 .swiper-button-prev {
     color: inherit;
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s var(--animation-timing);
 }
 
 .swiper-button-next:hover,
@@ -264,9 +281,11 @@ body.light-theme {
     font-weight: bold;
     color: white;
     cursor: pointer;
-    transition: var(--transition);
+    transition: transform 0.3s var(--animation-timing),
+                box-shadow 0.3s var(--animation-timing);
     font-family: var(--font);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    will-change: transform, box-shadow;
 }
 
 .generate-button {
@@ -295,7 +314,7 @@ body.light-theme {
 
 .generate-button:hover,
 .share-btn:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-3px) scale(1.02) var(--gpu-transform);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
 }
 
@@ -328,7 +347,7 @@ body.light-theme {
     padding: 1rem;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s var(--animation-timing);
 }
 
 .share-buttons {
@@ -373,12 +392,13 @@ footer {
     background: var(--color-primary);
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s var(--animation-timing);
     box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    will-change: transform;
 }
 
 .age-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) var(--gpu-transform);
 }
 
 .age-labels {
@@ -435,7 +455,8 @@ footer {
     height: 12px;
     background: var(--color-primary);
     border-radius: 50%;
-    animation: loadingDot 1.5s infinite;
+    animation: loadingDot 1.5s infinite var(--animation-timing);
+    will-change: transform, opacity;
 }
 
 .loading-dot:nth-child(2) {
@@ -473,8 +494,8 @@ footer {
     --ty: 0px;
     --duration: 6s;
     --delay: 0s;
-    animation: firefly var(--duration) ease-in-out infinite var(--delay);
-    will-change: transform;
+    animation: firefly var(--duration) var(--animation-timing) infinite var(--delay);
+    will-change: transform, opacity;
 }
 
 .light-theme .firefly-glow {
@@ -492,6 +513,7 @@ footer {
     margin-left: 2px;
     animation: blink 1s infinite;
     vertical-align: middle;
+    will-change: opacity;
 }
 
 /* Story Content */
@@ -511,61 +533,74 @@ footer {
     position: absolute;
     width: 20px;
     height: 20px;
-    animation: sparkle 2s infinite;
+    animation: sparkle 2s infinite var(--animation-timing);
     opacity: 0;
+    will-change: transform, opacity;
 }
 
 /* Animations */
-@keyframes float,
-@keyframes bounce {
+@keyframes float {
     0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0) var(--gpu-transform);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-10px) var(--gpu-transform);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0) var(--gpu-transform);
+    }
+    50% {
+        transform: translateY(-10px) var(--gpu-transform);
     }
 }
 
 @keyframes firefly {
     0%, 100% {
-        transform: translate(0, 0);
+        transform: translate(0, 0) var(--gpu-transform);
         opacity: 0;
     }
     10%, 90% {
         opacity: 0.8;
     }
     50% {
-        transform: translate(var(--tx), var(--ty));
+        transform: translate(var(--tx), var(--ty)) var(--gpu-transform);
         opacity: 1;
     }
 }
 
 @keyframes loadingDot {
     0%, 100% {
-        transform: scale(1);
+        transform: scale(1) var(--gpu-transform);
         opacity: 1;
     }
     50% {
-        transform: scale(1.5);
+        transform: scale(1.5) var(--gpu-transform);
         opacity: 0.5;
     }
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0; 
+    }
 }
 
 @keyframes sparkle {
     0% {
-        transform: translate(0, 0) rotate(0deg) scale(0);
+        transform: translate(0, 0) rotate(0deg) scale(0) var(--gpu-transform);
         opacity: 0;
     }
     25% {
         opacity: 1;
     }
     100% {
-        transform: translate(var(--tx, 100px), var(--ty, -100px)) rotate(180deg) scale(1);
+        transform: translate(var(--tx, 100px), var(--ty, -100px)) rotate(180deg) scale(1) var(--gpu-transform);
         opacity: 0;
     }
 }
@@ -614,7 +649,7 @@ footer {
     }
 
     .choice-card {
-        transform: scale(0.9);
+        transform: scale(0.9) var(--gpu-transform);
     }
 
     .story-container {
@@ -646,5 +681,45 @@ footer {
     .loading-dot {
         width: 10px;
         height: 10px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .theme-switch,
+    .social-links,
+    .share-buttons,
+    .generate-button,
+    .loading-animation,
+    .firefly {
+        display: none !important;
+    }
+
+    body {
+        background: none !important;
+        color: #000 !important;
+    }
+
+    .story-container {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #story-text {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

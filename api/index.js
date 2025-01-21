@@ -166,5 +166,13 @@ app.use((req, res) => {
     res.status(404).json({ error: 'Puslapis nerastas' });
 });
 
+// Start server if not in production (Vercel handles production)
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
 // Export the Express API
 module.exports = app;

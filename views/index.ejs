@@ -4,37 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✨ PasakAI ✨</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/css/style.css" as="style">
+    <link rel="preload" href="/js/main.js" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    
     <link rel="icon" href="/favicon.png">
     <meta property="og:title" content="✨ PasakAI ✨">
     <meta property="og:description" content="Atrask savo pasaką">
     <meta property="og:image" content="[YOUR_PREVIEW_IMAGE_URL]">
     <meta property="og:url" content="[YOUR_WEBSITE_URL]">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    </noscript>
 </head>
 <body class="dark-theme">
-    <div class="bg-gradient"></div>
-    <div class="stars"></div>
-    <div class="firefly"></div>
+    <div class="bg-gradient" aria-hidden="true"></div>
+    <div class="stars" aria-hidden="true"></div>
+    <div class="firefly" aria-hidden="true"></div>
+    
     <div class="theme-switch">
-        <button id="theme-toggle">
-            <span class="day-icon">☀️</span>
-            <span class="night-icon">🌙</span>
+        <button id="theme-toggle" aria-label="Toggle theme">
+            <span class="day-icon" aria-hidden="true">☀️</span>
+            <span class="night-icon" aria-hidden="true">🌙</span>
         </button>
     </div>
+    
     <div class="social-links">
-        <a href="https://www.patreon.com/inpixels" target="_blank" class="patreon-link">
+        <a href="https://www.patreon.com/inpixels" target="_blank" rel="noopener noreferrer" class="patreon-link">
             <span>❤️ Paremti projektą</span>
         </a>
     </div>
+    
     <div class="hero">
         <h1>✨ PasakAI ✨</h1>
         <p class="tagline">Atrask savo stebuklingą pasaką 🪄</p>
         <div class="hero-description">
             <p>Pasirink veikėjus, vietą, laiką ir nuotaiką, o mes paversime tavo idėjas magiška istorija!</p>
-            <div class="magic-icons">
+            <div class="magic-icons" aria-hidden="true">
                 <span>🦄</span>
                 <span>🌟</span>
                 <span>🎭</span>
@@ -42,6 +58,7 @@
             </div>
         </div>
     </div>
+    
     <div class="container">
         <div class="story-settings">
             <div class="setting-section">
@@ -122,10 +139,11 @@
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev" aria-label="Previous slide"></div>
+                    <div class="swiper-button-next" aria-label="Next slide"></div>
                 </div>
             </div>
+            
             <div class="setting-section">
                 <h2>📍 Kur vyksta pasaka?</h2>
                 <div class="swiper place-swiper">
@@ -192,10 +210,11 @@
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev" aria-label="Previous slide"></div>
+                    <div class="swiper-button-next" aria-label="Next slide"></div>
                 </div>
             </div>
+            
             <div class="setting-section">
                 <h2>👥 Kas yra veikėjai?</h2>
                 <div class="swiper character-swiper">
@@ -262,10 +281,11 @@
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev" aria-label="Previous slide"></div>
+                    <div class="swiper-button-next" aria-label="Next slide"></div>
                 </div>
             </div>
+            
             <div class="setting-section">
                 <h2>🎭 Kokia nuotaika?</h2>
                 <div class="swiper mood-swiper">
@@ -320,8 +340,8 @@
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev" aria-label="Previous slide"></div>
+                    <div class="swiper-button-next" aria-label="Next slide"></div>
                 </div>
             </div>
 
@@ -344,7 +364,7 @@
 
             <button id="generate-btn" class="generate-button">
                 <span class="button-text">Sukurti pasaką ✨</span>
-                <div class="button-magic"></div>
+                <div class="button-magic" aria-hidden="true"></div>
             </button>
         </div>
 
@@ -405,7 +425,8 @@
         <p>Sukurta su 💖 vaikų džiaugsmui</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="/js/main.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" defer></script>
+    <script src="/js/main.js" defer></script>
 </body>
 </html>
